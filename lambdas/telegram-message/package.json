@@ -1,0 +1,17 @@
+{
+  "name": "telegram-message",
+  "version": "1.0.0",
+  "description": "sends messages to telegram group via alexa",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Daniel Montero",
+  "license": "ISC",
+  "dependencies": {
+    "ask-sdk-core": "^2.5.2",
+    "ask-sdk-model": "^1.15.1",
+    "aws-sdk": "^2.446.0",
+    "messaging-api-telegram": "^0.7.11"
+  }
+}

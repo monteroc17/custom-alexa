@@ -3,30 +3,45 @@
 
 const Alexa = require('ask-sdk');
 const fetch = require('node-fetch');
+// const API_URL = 'https://api.apixu.com/v1/current.json?key=4d821f44b51e4c9a80525324193004&q=190.211.109.131';
+const API_URL = 'http://dataservice.accuweather.com/currentconditions/v1/1179375?apikey=H8Rz4xLevHBv2wOzRx7UqhB0WhltAxRM&details=true'
+
+const SKILL_NAME = 'Santa Clara Weather';
+const GET_FACT_MESSAGE = 'The weather in Santa Clara currently is: ';
+const HELP_MESSAGE = 'I can tell you the temperature for Santa Clara';
+const HELP_REPROMPT = 'What can I help you with?';
+const STOP_MESSAGE = 'Goodbye!';
+
+fetch(API_URL)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data[0].RelativeHumidity);
+        
+        const speechOutput = GET_FACT_MESSAGE + data[0].Temperature.Metric.Value + ` degrees. Humidity is at ${data[0].RelativeHumidity} percent.`;
+        console.log(speechOutput);
+      })
+      .catch(err => console.log(err));
 
 const GetClimateHandler = {
   canHandle(handlerInput) {
     const request = handlerInput.requestEnvelope.request;
     return request.type === 'LaunchRequest'
       || (request.type === 'IntentRequest'
-        && request.intent.name === 'GetNewFactIntent');
+        && request.intent.name === 'GetClimateIntent');
   },
   handle(handlerInput) {
-    fetch('https://api.apixu.com/v1/current.json?key=4d821f44b51e4c9a80525324193004&q=190.211.109.131')
+    fetch(API_URL)
       .then(response => response.json())
       .then(data => {
-          console.log(data);
+        console.log(data);
         const currentTemp = data.current.temp_c;
-        const speechOutput = GET_FACT_MESSAGE + currentTemp + `degrees. Humidity is at ${data.current.humidity} percent.`;
+        const speechOutput = GET_FACT_MESSAGE + data[0].Temperature.Metric.Value + ` degrees. Humidity is at ${data[0].RelativeHumidity} percent.`;
         return handlerInput.responseBuilder
           .speak(speechOutput)
           .withSimpleCard(SKILL_NAME, currentTemp)
           .getResponse();
       })
       .catch(err => console.log(err));
-    // const factArr = data;
-    // const factIndex = Math.floor(Math.random() * factArr.length);
-    // const randomFact = factArr[factIndex];
   },
 };
 
@@ -83,12 +98,6 @@ const ErrorHandler = {
       .getResponse();
   },
 };
-
-const SKILL_NAME = 'Santa Clara Weather';
-const GET_FACT_MESSAGE = 'The weather in Santa Clara currently is: ';
-const HELP_MESSAGE = 'I can tell you the temperature for Santa Clara';
-const HELP_REPROMPT = 'What can I help you with?';
-const STOP_MESSAGE = 'Goodbye!';
 
 
 const skillBuilder = Alexa.SkillBuilders.standard();
