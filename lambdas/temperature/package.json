@@ -14,7 +14,6 @@
   "author": "Amazon.com",
   "license": "Apache-2.0",
   "dependencies": {
-    "ask-sdk": "^2.0.0",
-    "node-fetch": "^2.4.1"
+    "ask-sdk": "^2.0.0"
   }
 }
