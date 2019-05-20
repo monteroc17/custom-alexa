@@ -1,0 +1,14 @@
+{
+  "name": "disponibilidad",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Montero",
+  "license": "ISC",
+  "dependencies": {
+    "dateformat": "^3.0.3"
+  }
+}
