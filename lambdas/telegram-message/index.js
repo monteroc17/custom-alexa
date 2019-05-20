@@ -1,8 +1,3 @@
-const { TelegramClient } = require('messaging-api-telegram');
-const client = TelegramClient.connect('807758151:AAHM3Zl_KlEErU54WN1EmzkyUad6VyeAp_A');
-
-const CHAT_ID = '-399892195';
-
 // Lambda Function code for Alexa.
 // Paste this into your index.js file. 
 
@@ -12,6 +7,7 @@ const https = require("https");
 
 
 const invocationName = "telegram";
+const API_URL = 'https://api.telegram.org/bot807758151:AAHM3Zl_KlEErU54WN1EmzkyUad6VyeAp_A/sendMessage?chat_id=-399892195&text=';
 
 // Session Attributes 
 //   Alexa will track attributes for you, by default only during the lifespan of your session.
@@ -167,23 +163,21 @@ const SendMessage_Handler =  {
 
         // console.log('***** slotValues: ' +  JSON.stringify(slotValues, null, 2));
         //   SLOT: message 
-        if(slotValues && slotValues.message) {
-            client.sendMessage(CHAT_ID, slotValues.message.heardAs, {
-                disable_web_page_preview: true,
-                disable_notification: false,
-              });
-            say = `message, ${slotValues.message.heardAs}, sent.`;
-        } else {
-            say = `I didn't quite hear that. What was it again?`;
-        }
-
-        say += slotStatus;
-
-
+        // LLAMAR AL ENDPOINT DE TELEGRAM -------------------------------------------------------------
+        https.get(API_URL+slotValues.message.heardAs, (res) => {
+          console.log(res);
+        }).on("error", (err)=> {
+            console.log("Error: " + err.message); 
+            say = `I didn't quite hear that. What was it again?`
+        });
+        
+        say += 'message, ' + slotValues.message.heardAs + ', sent.';
         return responseBuilder
             .speak(say)
             .reprompt('try again, ' + say)
             .getResponse();
+
+
     },
 };
 
@@ -690,9 +684,7 @@ const model = {
             }
           ],
           "samples": [
-            "write {message}",
-            "text {message}",
-            "send {message}"
+            "deploy {message}"
           ]
         },
         {

@@ -9,9 +9,6 @@
   "author": "Daniel Montero",
   "license": "ISC",
   "dependencies": {
-    "ask-sdk-core": "^2.5.2",
-    "ask-sdk-model": "^1.15.1",
-    "aws-sdk": "^2.446.0",
-    "messaging-api-telegram": "^0.7.11"
+    "ask-sdk": "^2.0.0"
   }
 }
