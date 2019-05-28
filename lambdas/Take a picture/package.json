@@ -1,0 +1,25 @@
+{
+  "name": "picture-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "Daniel Montero",
+  "license": "ISC",
+  "dependencies": {
+    "alexa-sdk": "^1.0.25",
+    "aws-iot-device-sdk": "^2.2.1",
+    "aws-sdk": "^2.463.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0",
+    "node-webcam": "^0.5.0",
+    "nodemailer": "^6.2.1",
+    "nodemon": "^1.19.1",
+    "pi-camera": "^1.2.1"
+  }
+}
